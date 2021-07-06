@@ -20,11 +20,7 @@
             return null; //返回参数值
         }
         
-        let url = `
-        https://cloudapi.linkface.cn/liveness/liveness_image/${getUrlParam("image_id")}
-        ?api_id=3c280c123b4d46049302004e29dc0b33
-        &api_secret=ff8ffe2c38214cd68387c2afb80425ef
-        `
+        let url = 'https://cloudapi.linkface.cn/liveness/liveness_image/${getUrlParam("image_id")}?api_id=3c280c123b4d46049302004e29dc0b33&api_secret=ff8ffe2c38214cd68387c2afb80425ef'
         $.get(url, function (data) {
                 $(".result").text(data)
         })
