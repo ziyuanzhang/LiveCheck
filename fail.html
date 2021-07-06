@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fail</title>
+    <script src="./js/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div>检测失败</div>
+    <button class="btn">重新检测</button>
+    <script>
+        $(".btn").click(function () {
+            window.location.href = `https://h5sdk.linkface.cn/#/liveness_check
+            ?api_id=3c280c123b4d46049302004e29dc0b33
+            &timestamp=1625469302447
+            &sign=7e406b967dc7365ea31f84fdbc838057c6f287d899cd89373dbfbcafcac4bca3
+            &mode=VIDEO
+            &motion=MOUTH
+            &fail_count=3
+            &failed_url=http://47.101.142.147/h5api/fail.html
+            &success_url=http://47.101.142.147/h5api/success.html
+            `
+        })
+    </script>
+</body>
+</html>
