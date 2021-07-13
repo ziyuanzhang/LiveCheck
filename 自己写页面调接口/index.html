@@ -44,14 +44,18 @@
 	<input class="recording" type="file" accept="video/*" capture="user" value="" />
 
 	<script type="text/javascript">
-
 		$(".submit1").click(function () {
 			let data = {
 				realName: $(".name").val(),
 				certNo: $(".id").val()
 			}
-			$.get("http://47.101.142.147:8080/loan/api/user/checkUserCertNo", data, function (res) {
+			$.get("http://quf17ix.nat.ipyingshe.com/loan/api/user/checkUserCertNo", data, function (res) {
 				console.log("submit1:", res)
+				if (res.status == 1) {
+					console.log("shibai")
+				} else {
+					console.log("姓名:", res.msg)
+				}
 
 			})
 		})
@@ -67,21 +71,29 @@
 			var reader = new FileReader();
 			reader.readAsDataURL(e.target.files[0]);
 			reader.onload = function () {
+				console.log("over1:")
 
 				let data = {
 					file: this.result
 				}
-				$.post("http://47.101.142.147:8080/loan/api/common/fileUpload", data, function (res) {
+				$.post("http://quf17ix.nat.ipyingshe.com/loan/api/common/fileUpload", data, function (res) {
 					console.log("btn:", res)
-				})
 
+					var data = {
+						api_id: "3c280c123b4d46049302004e29dc0b33",
+						api_secret: "ff8ffe2c38214cd68387c2afb80425ef",
+						motions: "BLINK",
+						liveness_data_url: res
+					}
+					console.log("over2:", JSON.stringify(data))
+					$.post("https://cloudapi.linkface.cn/liveness/check_liveness", JSON.stringify(data),
+						function (e) {
+							console.log("huti:", e)
+						})
+
+				})
 			}
 		})
-
-
-
-
-
 	</script>
 </body>
 
