@@ -1,96 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Document</title>
-		<script src="./js/jquery-3.6.0.min.js"></script>
-		<style>
-			.btn {
-				width: 200px;
-				height: 100px;
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="./js/jquery-3.6.0.min.js"></script>
+	<style>
+		.btn {
+			width: 200px;
+			height: 100px;
+		}
+
+		#myvideo {
+			width: 500px;
+			height: 400px;
+		}
+
+		#nei {
+			width: 100px;
+			height: 500px;
+			word-break: break-all;
+		}
+	</style>
+</head>
+
+<body>
+	<div>
+		<span class="txt">名字</span>
+		<input type="text" class="name">
+	</div>
+	<div>
+		<span class="txt">身份证号</span>
+		<input type="text" class="id">
+	</div>
+	<div>
+		<button class="submit1">提交</button>
+	</div>
+
+
+	<div calss="btn">开始录制时，请眨眼-1- </div>
+	<input class="recording" type="file" accept="video/*" capture="user" value="" />
+
+	<script type="text/javascript">
+
+		$(".submit1").click(function () {
+			let data = {
+				realName: $(".name").val(),
+				certNo: $(".id").val()
+			}
+			$.get("http://47.101.142.147:8080/loan/api/user/checkUserCertNo", data, function (res) {
+				console.log("submit1:", res)
+
+			})
+		})
+		$(".recording").change(function (e) {
+			console.log("size:", (e.target.files[0].size) / 1024 / 1024)
+			if ((e.target.files[0].size) / 1024 / 1024 > 5) {
+				alert("超过5M了");
+				$(".recording").val();
+				return
 			}
 
-			#myvideo {
-				width: 500px;
-				height: 400px;
-			}
 
-			#nei {
-				width: 100px;
-				height: 500px;
-				word-break: break-all;
-			}
-		</style>
-	</head>
+			var reader = new FileReader();
+			reader.readAsDataURL(e.target.files[0]);
+			reader.onload = function () {
 
-	<body>
-		<div calss="btn">开始录制时，请眨眼-1- </div>
-		<input class="input" type="file" accept="video/*" capture="user" value="" />
-		<div id="nei"></div>
-		<div id="test">
-			ceshi
-		</div>
-		<!-- <video id="myvideo" autoplay="true" controls muted></video> -->
-		<script type="text/javascript">
-			$("#test").click(function() {
 				let data = {
-					majia: "tudoujiebei",
-					mobile: "15225098760",
-					authCodeType: 1
+					file: this.result
 				}
-				console.log("dddd")
-				$.get("http://47.101.142.147:8080/loan/api/user/getAuthCode", data, function(e) {
-					console.log("test:", JSON.stringify(e))
+				$.post("http://47.101.142.147:8080/loan/api/common/fileUpload", data, function (res) {
+					console.log("btn:", res)
 				})
-			})
+
+			}
+		})
 
 
 
-			$(".input").change(function(e) {
-				console.log("files:", JSON.stringify(this.files[0]))
-				console.log("size:", (e.target.files[0].size) / 1024 / 1024)
-				// var data = {
-				// 	api_id: "3c280c123b4d46049302004e29dc0b33",
-				// 	api_secret: "ff8ffe2c38214cd68387c2afb80425ef",
-				// 	motions: "BLINK",
-				// 	liveness_data_file: e.target.files[0]
-				// }
-				// console.log("over2:", JSON.stringify(data))
-				// $.post("https://cloudapi.linkface.cn/liveness/check_liveness", data, function(
-				// 	e) {
-				// 	console.log("over3")
-				// 	console.log('post:', JSON.stringify(e, null, 2))
-				// 	$("#nei").html(JSON.stringify(e, null, 2))
-				// })
-				// return;
 
 
-				var reader = new FileReader();
-				reader.readAsDataURL(e.target.files[0]);
-				reader.onload = function() {
-					console.log("over1")
-					//$("#nei").html(JSON.stringify(this.result))
-					//$("#myvideo").attr("src", this.result)
-					//document.getElementById('myvideo').play();
-					var data = {
-						api_id: "3c280c123b4d46049302004e29dc0b33",
-						api_secret: "ff8ffe2c38214cd68387c2afb80425ef",
-						motions: "BLINK",
-						liveness_data_file: this.result
-					}
-					console.log("over2:", JSON.stringify(data))
-					$.post("https://cloudapi.linkface.cn/liveness/check_liveness", JSON.stringify(data), function(
-						e) {
-						console.log("over3")
-						console.log('post:', JSON.stringify(e, null, 2))
-						$("#nei").html(JSON.stringify(e, null, 2))
-					})
-				}
-			})
-		</script>
-	</body>
+	</script>
+</body>
 
 </html>
