@@ -1,4 +1,5 @@
 var baseUrl = "http://quf17ix.nat.ipyingshe.com/loan";
+var checkSuccess = false;
 $(document).ready(function () {
   $("#check-btn").click(function () {
     var nameVal = $("#name").val().trim();
@@ -62,10 +63,30 @@ $(document).ready(function () {
       //console.log("huti:", e);
       var fileUrlRes = JSON.parse(e);
       if (fileUrlRes.status == "0") {
+        checkSuccess = true;
       } else {
-        alert(fileUrlRes.data);
         $("#tips").text(fileUrlRes.data).show().delay(3000).fadeOut();
       }
     });
+  }
+  $("#submitBtn").click(function () {
+    if (checkSuccess) {
+      loadURL("mylinkface://check?result=1");
+    } else {
+      $("#tips").text("请先完成身份验证").show().delay(3000).fadeOut();
+    }
+  });
+  function loadURL(url) {
+    var iFrame;
+    iFrame = document.createElement("iframe");
+    iFrame.setAttribute("src", url);
+    iFrame.setAttribute("style", "display:none;");
+    iFrame.setAttribute("height", "0px");
+    iFrame.setAttribute("width", "0px");
+    iFrame.setAttribute("frameborder", "0");
+    document.body.appendChild(iFrame);
+    // 发起请求后这个iFrame就没用了，所以把它从dom上移除掉
+    iFrame.parentNode.removeChild(iFrame);
+    iFrame = null;
   }
 });
