@@ -1,0 +1,163 @@
+.realName {
+  width: 100%;
+  margin-bottom: 33px;
+}
+.first-step {
+  padding: 0 22px;
+}
+.first-step .title {
+  font-size: 14px;
+  font-family: PingFang;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 20px;
+}
+.first-step .desc-container {
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0px 3px 30px 0px rgba(114, 171, 205, 0.3);
+  border-radius: 10px;
+}
+.first-step .desc-container .item {
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+.first-step .desc-container .item:first-of-type {
+  border-bottom: 1px solid #dcdcdc;
+}
+.first-step .desc-container .item .lable,
+.first-step .desc-container .item .input {
+  font-size: 14px;
+  font-family: PingFang;
+  font-weight: bold;
+  color: #000000;
+}
+.first-step .desc-container .item .lable {
+  margin-right: 22px;
+}
+.first-step .desc-container .item .input {
+  height: 30px;
+  border: none;
+  outline: none;
+}
+.first-step .desc-container .item .input::placeholder {
+  font-size: 12px;
+  font-family: PingFang;
+  font-weight: 500;
+  color: #aab1c0;
+}
+.second-step {
+  margin-top: 26px;
+  padding: 0 22px;
+}
+.second-step .title {
+  font-size: 14px;
+  font-family: PingFang;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 20px;
+}
+.second-step .desc-container {
+  background: #ffffff;
+  box-shadow: 0px 3px 30px 0px rgba(114, 171, 205, 0.3);
+  border-radius: 10px;
+  text-align: center;
+}
+.second-step .desc-container .scan {
+  margin-top: 36px;
+  width: 190px;
+}
+.second-step .desc-container .tips {
+  font-size: 12px;
+  font-family: PingFang;
+  font-weight: 400;
+  margin-top: 20px;
+}
+.second-step .desc-container .check-btn {
+  margin-top: 12px;
+  width: 65px;
+}
+.second-step .desc-container .explain {
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+.second-step .desc-container .explain .title {
+  font-size: 14px;
+  font-family: PingFang;
+  font-weight: bold;
+  color: #333333;
+  text-align: left;
+}
+.second-step .desc-container .explain .list {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  padding-bottom: 30px;
+}
+.second-step .desc-container .explain .list .item {
+}
+.second-step .desc-container .explain .list .item .people {
+  width: 60px;
+  margin-bottom: 10px;
+}
+.second-step .desc-container .explain .list .item .icon {
+  width: 9px;
+}
+.foot {
+  padding: 0 22px;
+  box-sizing: border-box;
+  margin-top: 50px;
+}
+.foot .protocol-container {
+  text-align: center;
+}
+.foot .protocol-container .icon {
+  width: 12px;
+}
+.foot .protocol-container .txt {
+  font-size: 12px;
+  font-family: PingFang;
+  font-weight: 400;
+  color: #202020;
+}
+.foot .protocol-container .link {
+  font-size: 12px;
+  font-family: PingFang;
+  font-weight: 400;
+  color: #049eff;
+}
+.foot .btn {
+  margin: 13px 0 36px;
+  width: 100%;
+  height: 40px;
+  border-radius: 41px;
+  background-color: #ffbd49;
+  text-align: center;
+  line-height: 40px;
+
+  font-size: 18px;
+  font-family: PingFang;
+  font-weight: bold;
+  color: #ffffff;
+}
+#recording {
+  width: 0;
+  height: 0;
+}
+#tips {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 5px 5px;
+  background-color: #000000;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}

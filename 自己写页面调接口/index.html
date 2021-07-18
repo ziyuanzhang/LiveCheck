@@ -5,29 +5,91 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>real-name</title>
+	<link rel="stylesheet" href="./css/style.css">
+	<link rel="stylesheet" href="./css/reset.css">
 	<script src="./js/jquery-3.6.0.min.js"></script>
-	<style>
-		.btn {
-			width: 200px;
-			height: 100px;
-		}
-
-		#myvideo {
-			width: 500px;
-			height: 400px;
-		}
-
-		#nei {
-			width: 100px;
-			height: 500px;
-			word-break: break-all;
-		}
-	</style>
+	<script src="./js/js.js"></script>
 </head>
 
 <body>
-	<div>
+	<img class="realName" src="./img/realName.jpg" alt="">
+	<div class="first-step">
+		<p class="title">第一步 · 请填写姓名和身份证号码</p>
+		<div class="desc-container">
+			<div class="item">
+				<span class="lable">真实姓名</span>
+				<input id="name" class="input" type="text" placeholder="请如实填写您的姓名（已加密）">
+			</div>
+			<div class="item">
+				<span class="lable">身份证号</span>
+				<input id="id" class="input id" type="text" placeholder="请输入身份证号（已加密）">
+			</div>
+		</div>
+	</div>
+	<div class="second-step">
+		<p class="title">第二步 · 请按提示完成人脸验证</p>
+		<div class="desc-container">
+			<img class="scan" src="./img/scan.jpg" alt="">
+			<p class="tips">
+				点击“开始按钮”通过后，请眨眼
+				<!-- 请根据指示完成人脸认证 -->
+			</p>
+			<img id="check-btn" class="check-btn" src="./img/btn.jpg" alt="">
+			<div class="explain">
+				<p class="title">拍摄须知</p>
+				<div class="list">
+					<div class="item">
+						<img class="people" src="./img/people (1).jpg" alt="">
+						<p class="">
+							<img class="icon" src="./img/dui.png" alt="">
+							<span class="txt">标准拍摄</span>
+						</p>
+					</div>
+					<div class="item">
+						<img class="people" src="./img/people (2).jpg" alt="">
+						<p class="">
+							<img class="icon" src="./img/cuo.png" alt="">
+							<span class="txt">遮挡面部</span>
+						</p>
+					</div>
+					<div class="item">
+						<img class="people" src="./img/people (3).jpg" alt="">
+						<p class="">
+							<img class="icon" src="./img/cuo.png" alt="">
+							<span class="txt">拍摄不全</span>
+						</p>
+					</div>
+					<div class="item">
+						<img class="people" src="./img/people (4).jpg" alt="">
+						<p class="">
+							<img class="icon" src="./img/cuo.png" alt="">
+							<span class="txt">光线不全</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="foot">
+		<p class="protocol-container">
+			<img class="icon" src="./img/mayi.png" alt="">
+			<span class="txt">信息已安全加密，同意</span>
+			<a class="link" href="#">《蚂蚁信用服务协议》</a>
+		</p>
+		<div class="btn">同意协议并提交</div>
+	</div>
+
+	<input id="recording" type="file" accept="video/*" capture="user" value="" />
+
+	<div id="tips"></div>
+
+
+
+
+
+	<!-- <div>
 		<span class="txt">名字</span>
 		<input type="text" class="name">
 	</div>
@@ -42,59 +104,9 @@
 
 	<div calss="btn">开始录制时，请眨眼-1- </div>
 	<input class="recording" type="file" accept="video/*" capture="user" value="" />
-
-	<script type="text/javascript">
-		$(".submit1").click(function () {
-			let data = {
-				realName: $(".name").val(),
-				certNo: $(".id").val()
-			}
-			$.get("http://quf17ix.nat.ipyingshe.com/loan/api/user/checkUserCertNo", data, function (res) {
-				console.log("submit1:", res)
-				if (res.status == 1) {
-					console.log("shibai")
-				} else {
-					console.log("姓名:", res.msg)
-				}
-
-			})
-		})
-		$(".recording").change(function (e) {
-			console.log("size:", (e.target.files[0].size) / 1024 / 1024)
-			if ((e.target.files[0].size) / 1024 / 1024 > 5) {
-				alert("超过5M了");
-				$(".recording").val();
-				return
-			}
+ -->
 
 
-			var reader = new FileReader();
-			reader.readAsDataURL(e.target.files[0]);
-			reader.onload = function () {
-				console.log("over1:")
-
-				let data = {
-					file: this.result
-				}
-				$.post("http://quf17ix.nat.ipyingshe.com/loan/api/common/fileUpload", data, function (res) {
-					console.log("btn:", res)
-
-					var data = {
-						api_id: "3c280c123b4d46049302004e29dc0b33",
-						api_secret: "ff8ffe2c38214cd68387c2afb80425ef",
-						motions: "BLINK",
-						liveness_data_url: res
-					}
-					console.log("over2:", JSON.stringify(data))
-					$.post("https://cloudapi.linkface.cn/liveness/check_liveness", JSON.stringify(data),
-						function (e) {
-							console.log("huti:", e)
-						})
-
-				})
-			}
-		})
-	</script>
 </body>
 
 </html>
