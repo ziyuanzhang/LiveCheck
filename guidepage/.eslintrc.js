@@ -9,6 +9,8 @@ module.exports = {
   },
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off"
+    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "comma-dangle": [2, "never"],
+    "no-irregular-whitespace": "off" //这禁止掉 空格报错检查
   }
 };
