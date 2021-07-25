@@ -15,16 +15,26 @@
     <div class="middle">
       <div class="input-con">
         <img class="icon" src="../assets/img/guide/mobile.png" alt="" />
-        <input class="input" type="text" placeholder="请输入您的手机号码" />
+        <input
+          class="input"
+          type="text"
+          v-model="mobileNum"
+          placeholder="请输入您的手机号码"
+        />
       </div>
-      <img class="img-btn" src="../assets/img/guide/btn.png" alt="" />
+      <img
+        class="img-btn"
+        @click="onGetApp"
+        src="../assets/img/guide/btn.png"
+        alt=""
+      />
       <div class="advisory-con">
         <img class="triangle" src="../assets/img/guide/triangle.jpg" alt="" />
         <img class="baogao" src="../assets/img/guide/baogao.png" alt="" />
         <div class="txt">来自广东的李女士成功领取1000元</div>
       </div>
       <div class="protocol-con">
-        <span class="dui" :class="{ active: true }"></span>
+        <span class="dui" @click="onAgree" :class="{ active: isAgree }"></span>
         <p class="txt">
           同意并接受<a class="link" href="#">《蚂蚁信用用户服务协议》</a>
         </p>
@@ -61,6 +71,8 @@ export default {
     return {
       showAnimation: false,
       money: 0,
+      isAgree: true,
+      mobileNum: "",
       iconArr: [
         {
           icon: require("../assets/img/guide/1.png"),
@@ -109,6 +121,31 @@ export default {
         clearInterval(amount);
       }
     }, 0);
+  },
+  methods: {
+    onAgree() {
+      this.isAgree = !this.isAgree;
+    },
+    onGetApp() {
+      if (this.$utls.isMobileNum(this.mobileNum)) {
+        if (this.isAgree) {
+          if (this.$utls.isAndroid()) {
+            window.location.href =
+              "https://test-1255867289.cos.ap-shanghai.myqcloud.com/apk/jiguang.apk";
+          } else {
+            window.location.href =
+              "itms-services://?action=download-manifest&url=https://test-1255867289.cos.ap-shanghai.myqcloud.com/apk/manifest_jiguang.plist";
+            this.$router.push({
+              name: "download"
+            });
+          }
+        } else {
+          this.$toast("请先同意协议！");
+        }
+      } else {
+        this.$toast("请输入正确手机号！");
+      }
+    }
   }
 };
 </script>

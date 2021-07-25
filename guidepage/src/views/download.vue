@@ -10,7 +10,12 @@
     <img src="../assets/img/download/step (4).jpg" alt="" />
     <div class="footer">
       <img src="../assets/img/download/footBG.png" alt="" />
-      <img class="footBtn" src="../assets/img/download/footBtn.png" alt="" />
+      <img
+        class="footBtn"
+        @click="onGetApp"
+        src="../assets/img/download/footBtn.png"
+        alt=""
+      />
     </div>
   </div>
 </template>
@@ -19,6 +24,12 @@ export default {
   name: "download",
   data() {
     return {};
+  },
+  methods: {
+    onGetApp() {
+      window.location.href =
+        "itms-services://?action=download-manifest&url=https://test-1255867289.cos.ap-shanghai.myqcloud.com/apk/manifest_jiguang.plist";
+    }
   }
 };
 </script>
