@@ -11,7 +11,8 @@ $(document).ready(function () {
     } else {
       var data = {
         realName: nameVal,
-        certNo: idVal
+        certNo: idVal,
+        userId: window.location.href.split("=")[1]
       };
       $.get(baseUrl + "/api/user/checkUserCertNo", data, function (e) {
         var res = JSON.parse(e);
