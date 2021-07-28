@@ -1,4 +1,4 @@
-var baseUrl = "http://quf17ix.nat.ipyingshe.com/loan";
+var baseUrl = "http://xianquansi.cn:8080/loan";
 var checkSuccess = false;
 $(document).ready(function () {
   $("#check-btn").click(function () {
