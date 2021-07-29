@@ -43,6 +43,7 @@
   height: 30px;
   border: none;
   outline: none;
+  flex: 1;
 }
 .first-step .desc-container .item .input::placeholder {
   font-size: 12px;
@@ -145,8 +146,8 @@
   color: #ffffff;
 }
 #recording {
-  width: 0;
-  height: 0;
+  width: 50px;
+  height: 50px;
 }
 #tips {
   display: none;

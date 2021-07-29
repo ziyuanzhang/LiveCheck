@@ -20,9 +20,11 @@ $(document).ready(function () {
         // submit1: {"status":1,"msg":"输入失败，请检查信息是否正确","data":null}
         if (res.status == 1) {
           console.log("shibai");
-          $("#recording").trigger("click");
-        } else {
           $("#tips").text(res.msg).show().delay(3000).fadeOut();
+        } else {
+          $("#tips").text("检测成功").show().delay(3000).fadeOut();
+
+          $("#recording").trigger("click");
         }
       });
     }
