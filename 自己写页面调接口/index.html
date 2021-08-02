@@ -27,6 +27,10 @@
 				<input id="id" class="input id" type="text" placeholder="请输入身份证号（已加密）">
 			</div>
 		</div>
+		<div class="first-btn-wrapper">
+			<img id="firstBtn" class="first-btn" src="./img/first-btn.jpg" alt="">
+		</div>
+
 	</div>
 	<div class="second-step">
 		<p class="title">第二步 · 请按提示完成人脸验证</p>
@@ -36,7 +40,11 @@
 				点击“开始按钮”通过后，请眨眼
 				<!-- 请根据指示完成人脸认证 -->
 			</p>
-			<img id="check-btn" class="check-btn" src="./img/btn.jpg" alt="">
+			<div class="btn-wrapper">
+				<input id="recording" class="recording" type="file" accept="video/*" capture="user" value="" />
+				<img id="check-btn" class="check-btn" src="./img/btn.jpg" alt="">
+			</div>
+
 			<div class="explain">
 				<p class="title">拍摄须知</p>
 				<div class="list">
@@ -82,7 +90,7 @@
 		<div id="submitBtn" class="btn">同意协议并提交</div>
 	</div>
 
-	<input id="recording" type="file" accept="video/*" capture="user" value="" />
+
 
 	<div id="tips"></div>
 

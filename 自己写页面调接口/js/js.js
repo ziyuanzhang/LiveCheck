@@ -1,7 +1,7 @@
 var baseUrl = "http://xianquansi.cn:8080/loan";
-var checkSuccess = false;
+var stepWill = 1;
 $(document).ready(function () {
-  $("#check-btn").click(function () {
+  $("#firstBtn").click(function () {
     var nameVal = $("#name").val().trim();
     var idVal = $("#id").val().trim();
     if (nameVal.length == 0) {
@@ -20,14 +20,18 @@ $(document).ready(function () {
         // submit1: {"status":1,"msg":"输入失败，请检查信息是否正确","data":null}
         if (res.status == 1) {
           console.log("shibai");
+          stepWill = 1;
           $("#tips").text(res.msg).show().delay(3000).fadeOut();
         } else {
           $("#tips").text("检测成功").show().delay(3000).fadeOut();
-
-          $("#recording").trigger("click");
+          stepWill = 2;
+          $("#recording").show();
         }
       });
     }
+  });
+  $("#check-btn").click(function () {
+    $("#tips").text("请先完成第一步！").show().delay(3000).fadeOut();
   });
 
   $("#recording").change(function (e) {
@@ -66,14 +70,14 @@ $(document).ready(function () {
       //console.log("huti:", e);
       var fileUrlRes = JSON.parse(e);
       if (fileUrlRes.status == "0") {
-        checkSuccess = true;
+        stepWill = 3;
       } else {
         $("#tips").text(fileUrlRes.data).show().delay(3000).fadeOut();
       }
     });
   }
   $("#submitBtn").click(function () {
-    if (checkSuccess) {
+    if (stepWill == 3) {
       loadURL("mylinkface://check?result=1");
     } else {
       $("#tips").text("请先完成身份验证").show().delay(3000).fadeOut();
