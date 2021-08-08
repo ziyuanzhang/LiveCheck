@@ -36,7 +36,9 @@
       <div class="protocol-con">
         <span class="dui" @click="onAgree" :class="{ active: isAgree }"></span>
         <p class="txt">
-          同意并接受<a class="link" href="#">《蚂蚁信用用户服务协议》</a>
+          同意并接受<a class="link" href="http://xianquansi.cn/mayi/credit.pdf"
+            >《蚂蚁信用用户服务协议》</a
+          >
         </p>
       </div>
     </div>

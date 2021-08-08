@@ -55,10 +55,7 @@ $(document).ready(function () {
         //成功回调
         console.log("formData-res:", res);
         if (res.status == "0") {
-          var fileUrlData = {
-            fileUrl: res.data
-          };
-          send(fileUrlData);
+          send({ fileUrl: res.data });
         } else {
           $("#tips").text("上传失败").show().delay(3000).fadeOut();
         }
