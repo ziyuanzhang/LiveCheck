@@ -26,9 +26,24 @@ export default {
     return {};
   },
   methods: {
-    onGetApp() {
-      window.location.href =
-        "itms-services://?action=download-manifest&url=https://test-1255867289.cos.ap-shanghai.myqcloud.com/apk/manifest_mayi.plist";
+    async onGetApp() {
+      let data = {
+        channelNo: this.$channelNo,
+        clientType: this.$clientType,
+        majia: this.$majia,
+        mobile: this.mobileNum
+      };
+      let res = await this.$ajax.get("/api/user/FastRegister", {
+        params: data
+      });
+      if (res) {
+        if (res.data && res.data.status == "0") {
+          window.location.href =
+            "itms-services://?action=download-manifest&url=https://test-1255867289.cos.ap-shanghai.myqcloud.com/apk/manifest_mayi.plist";
+        } else {
+          this.$toast(res.data.msg);
+        }
+      }
     }
   }
 };

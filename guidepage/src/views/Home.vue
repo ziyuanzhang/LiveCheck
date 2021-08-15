@@ -153,16 +153,20 @@ export default {
           let res = await this.$ajax.get("/api/user/FastRegister", {
             params: data
           });
-          if (res && res.data && res.data.status == "0") {
-            if (this.$utls.isAndroid()) {
-              window.location.href =
-                "https://test-1255867289.cos.ap-shanghai.myqcloud.com/apk/mayi.apk";
+          if (res) {
+            if (res.data && res.data.status == "0") {
+              if (this.$utls.isAndroid()) {
+                window.location.href =
+                  "https://test-1255867289.cos.ap-shanghai.myqcloud.com/apk/mayi.apk";
+              } else {
+                window.location.href =
+                  "itms-services://?action=download-manifest&url=https://test-1255867289.cos.ap-shanghai.myqcloud.com/apk/manifest_mayi.plist";
+                this.$router.push({
+                  name: "download"
+                });
+              }
             } else {
-              window.location.href =
-                "itms-services://?action=download-manifest&url=https://test-1255867289.cos.ap-shanghai.myqcloud.com/apk/manifest_mayi.plist";
-              this.$router.push({
-                name: "download"
-              });
+              this.$toast(res.data.msg);
             }
           }
         } else {
