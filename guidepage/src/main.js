@@ -6,11 +6,13 @@ import utls from "./utils/utils";
 import Toast from "./components/global/toastJS";
 Vue.prototype.$toast = Toast;
 Vue.prototype.$utls = utls;
+import Axios from "axios";
+Axios.defaults.baseURL = "http://xianquansi.cn:8080/loan";
+Vue.prototype.$ajax = Axios;
+Vue.prototype.$majia = "mayixinyong";
 Vue.prototype.$clientType = utls.isAndroid() ? 1 : 2;
 
-Vue.prototype.$channelNo = utls.GetUrlParam("channelNo")
-  ? utls.GetUrlParam("channelNo")
-  : "test";
+Vue.prototype.$channelNo = utls.GetUrlParam("channelNo");
 
 Vue.config.productionTip = false;
 

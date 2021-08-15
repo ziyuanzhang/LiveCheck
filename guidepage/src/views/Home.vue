@@ -36,8 +36,13 @@
       <div class="protocol-con">
         <span class="dui" @click="onAgree" :class="{ active: isAgree }"></span>
         <p class="txt">
-          同意并接受<a class="link" href="http://xianquansi.cn/mayi/credit.pdf"
-            >《蚂蚁信用用户服务协议》</a
+          我已阅读并同意
+          <a class="link" href="http://xianquansi.cn/mayi/register.pdf"
+            >《蚂蚁信用用户协议》</a
+          >
+          与
+          <a class="link" href="http://xianquansi.cn/mayi/Privacy.pdf"
+            >《隐私协议》</a
           >
         </p>
       </div>
@@ -109,8 +114,16 @@ export default {
       ]
     };
   },
-  created() {
+  async created() {
     this.showAnimation = false;
+    let data = {
+      channelNo: this.$channelNo,
+      clientType: this.$clientType
+    };
+    let res = await this.$ajax.get("/ad/browserCount", { params: data });
+    if (res && res.data && res.data.msg == "success") {
+      console.log("埋点：", res);
+    }
   },
   mounted() {
     setTimeout(() => {
@@ -128,18 +141,29 @@ export default {
     onAgree() {
       this.isAgree = !this.isAgree;
     },
-    onGetApp() {
+    async onGetApp() {
       if (this.$utls.isMobileNum(this.mobileNum)) {
         if (this.isAgree) {
-          if (this.$utls.isAndroid()) {
-            window.location.href =
-              "https://test-1255867289.cos.ap-shanghai.myqcloud.com/apk/jiguang.apk";
-          } else {
-            window.location.href =
-              "itms-services://?action=download-manifest&url=https://test-1255867289.cos.ap-shanghai.myqcloud.com/apk/manifest_jiguang.plist";
-            this.$router.push({
-              name: "download"
-            });
+          let data = {
+            channelNo: this.$channelNo,
+            clientType: this.$clientType,
+            majia: this.$majia,
+            mobile: this.mobileNum
+          };
+          let res = await this.$ajax.get("/api/user/FastRegister", {
+            params: data
+          });
+          if (res && res.data && res.data.status == "0") {
+            if (this.$utls.isAndroid()) {
+              window.location.href =
+                "https://test-1255867289.cos.ap-shanghai.myqcloud.com/apk/mayi.apk";
+            } else {
+              window.location.href =
+                "itms-services://?action=download-manifest&url=https://test-1255867289.cos.ap-shanghai.myqcloud.com/apk/manifest_mayi.plist";
+              this.$router.push({
+                name: "download"
+              });
+            }
           }
         } else {
           this.$toast("请先同意协议！");

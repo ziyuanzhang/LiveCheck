@@ -13,7 +13,7 @@ let utls = {
     }
   },
   GetUrlParam: (paraName) => {
-    let url = document.location.toString();
+    let url = document.location.href;
     let arrObj = url.split("?");
 
     if (arrObj.length > 1) {
@@ -27,9 +27,9 @@ let utls = {
           return arr[1];
         }
       }
-      return "";
+      return "test";
     } else {
-      return "";
+      return "test";
     }
   },
   isMobileNum: (num) => {
