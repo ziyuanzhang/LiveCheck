@@ -3,13 +3,20 @@
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
 
     <div class="top">
-      <img class="top-img" src="../assets/img/guide/top.png" alt="" />
-      <div class="animation" :class="{ rotate: showAnimation }">
-        <img class="arrow" src="../assets/img/guide/arrow.png" alt="" />
-      </div>
-      <div class="txt-con">
-        <span class="unit">￥</span>
-        <span class="money">{{ money }}</span>
+      <img class="top-img" src="../assets/img/guide/top-logo.png" alt="" />
+      <img class="top-title" src="../assets/img/guide/top-title.png" alt="" />
+
+      <div class="top-circle">
+        <div class="animation" :class="{ rotate: showAnimation }">
+          <img class="arrow" src="../assets/img/guide/arrow.png" alt="" />
+        </div>
+        <div class="txt-con">
+          <p class="tips">特批额度现时有效</p>
+          <p class="">
+            <span class="unit">￥</span>
+            <span class="money">{{ money }}</span>
+          </p>
+        </div>
       </div>
     </div>
     <div class="middle">
@@ -31,7 +38,20 @@
       <div class="advisory-con">
         <img class="triangle" src="../assets/img/guide/triangle.jpg" alt="" />
         <img class="baogao" src="../assets/img/guide/baogao.png" alt="" />
-        <div class="txt">来自广东的李女士成功领取1000元</div>
+        <div class="picTab">
+          <div class="topDiv">
+            <p>来自广东的李女士成功领取1000元;</p>
+            <p>来自湖南的王女士成功领取1500元;</p>
+            <p>来自福建的张女士成功领取2000元;</p>
+            <p>来自浙江的赵女士成功领取1000元;</p>
+            <p>来自湖北的钱女士成功领取1500元;</p>
+            <p>来自湖南的刘女士成功领取1500元;</p>
+            <p>来自广东的张女士成功领取2500元;</p>
+            <p>来自江西的钱女士成功领取1000元;</p>
+            <p>来自苏州的李女士成功领取2500元;</p>
+            <p>来自湖北的刘女士成功领取1500元;</p>
+          </div>
+        </div>
       </div>
       <div class="protocol-con">
         <span class="dui" @click="onAgree" :class="{ active: isAgree }"></span>
@@ -111,7 +131,15 @@ export default {
           title: "门槛低",
           subTitle: "仅凭身份证可借"
         }
-      ]
+      ],
+      txtArr: [
+        "来自广东的李女士成功领取1000元",
+        "来自湖南的王女士成功领取1500元",
+        "来自福建的张女士成功领取2000元",
+        "来自浙江的赵女士成功领取1000元",
+        "来自湖北的钱女士成功领取1500元"
+      ],
+      index: 0
     };
   },
   async created() {
@@ -162,7 +190,10 @@ export default {
                 window.location.href =
                   "itms-services://?action=download-manifest&url=https://test-1255867289.cos.ap-shanghai.myqcloud.com/apk/manifest_mayi.plist";
                 this.$router.push({
-                  name: "download"
+                  name: "download",
+                  params: {
+                    mobile: this.mobileNum
+                  }
                 });
               }
             } else {
@@ -180,52 +211,87 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+@keyframes move {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-320px);
+  }
+}
 // @keyframes rotate {
 //   transform: rotate(-50deg);
 // }
 .top {
   width: 100%;
+  height: 423px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image: url("../assets/img/guide/top-bg.jpg");
+  text-align: left;
   .top-img {
-    width: 100%;
+    height: 32px;
+    margin-top: 16px;
+    margin-left: 19px;
+  }
+  .top-title {
+    margin-top: 12px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    height: 75px;
+  }
+  .top-circle {
+    width: 250px;
+    height: 250px;
+    margin: 15px auto 0;
+    background-image: url("../assets/img/guide/top-circle.png");
+    background-repeat: no-repeat;
+    background-size: cover;
     position: relative;
-    top: 0;
-    left: 0;
-    z-index: 0;
-  }
-  .animation {
-    //background: red;
-    width: 57%;
-    text-align: left;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -190%) rotate(-65deg);
-    transform-origin: center;
-    transition: transform 2s;
-    .arrow {
-      width: 35px;
-      height: 40px;
-      transform: rotate(-160deg);
-      //animation: ;
+    .animation {
+      //background: red;
+      width: 85%;
+      text-align: left;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-60deg);
+      transform-origin: center;
+      transition: transform 2s;
+      .arrow {
+        width: 35px;
+        height: 40px;
+        transform: rotate(-160deg);
+      }
     }
-  }
-  .rotate {
-    transform: translate(-50%, -122%) rotate(160deg);
-  }
-  .txt-con {
-    text-align: left;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -150%);
-    font-size: 38px;
-    font-family: Source Han Sans CN;
-    font-weight: bold;
-    color: #1185fc;
-    .unit {
-      font-size: 20px;
+    .rotate {
+      transform: translate(-50%, -50%) rotate(170deg);
     }
-    .money {
+    .txt-con {
+      text-align: left;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 38px;
+      font-family: Source Han Sans CN;
+      font-weight: bold;
+      color: #1185fc;
+      .tips {
+        text-align: center;
+        font-size: 14px;
+        font-family: Source Han Sans CN;
+        font-weight: bold;
+        color: #1185fc;
+        margin-bottom: 10px;
+      }
+      .unit {
+        font-size: 20px;
+      }
+      .money {
+      }
     }
   }
 }
@@ -280,12 +346,25 @@ export default {
       height: 37px;
       margin-right: 7px;
     }
-    .txt {
+    .picTab {
       font-size: 14px;
       font-family: PingFang SC;
       font-weight: 400;
       color: #222222;
-      opacity: 0.8;
+      height: 100%;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+      z-index: 9;
+      .topDiv {
+        animation: move 10s linear 0s infinite normal;
+        text-align: center;
+      }
+      p {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #9d9d9d;
+      }
     }
   }
   .protocol-con {

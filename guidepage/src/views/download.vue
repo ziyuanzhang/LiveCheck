@@ -25,13 +25,15 @@ export default {
   data() {
     return {};
   },
+
   methods: {
     async onGetApp() {
+      //  console.log("this.$route.params.mobile:", this.$route.params.mobile);
       let data = {
         channelNo: this.$channelNo,
         clientType: this.$clientType,
         majia: this.$majia,
-        mobile: this.mobileNum
+        mobile: this.$route.params.mobile
       };
       let res = await this.$ajax.get("/api/user/FastRegister", {
         params: data
@@ -51,6 +53,7 @@ export default {
 <style lang="less" scoped>
 .download {
   font-size: 0px;
+  padding-bottom: 104px;
   img {
     width: 100%;
     margin-top: -1px;
@@ -63,7 +66,10 @@ export default {
     margin-bottom: -70px;
   }
   .footer {
-    position: relative;
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    z-index: 9;
     .footBtn {
       position: absolute;
       top: 50%;
