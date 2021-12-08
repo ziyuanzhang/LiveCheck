@@ -101,15 +101,19 @@
       <p>贷款额度，放款时间以实际审批结果为准</p>
       <p>金融服务将根据您的个人情况由适合的正规金融机构提供</p>
     </div>
+    <vStay v-if="showConfirm" @emitStay="eventStay"></vStay>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 //import HelloWorld from "@/components/HelloWorld.vue";
-
+import vStay from "@/components/vStay";
 export default {
   name: "Home",
+  components: {
+    vStay
+  },
   data() {
     return {
       showAnimation: false,
@@ -167,7 +171,8 @@ export default {
         require("../assets/img/guide/recharge6.png"),
         require("../assets/img/guide/recharge7.png"),
         require("../assets/img/guide/recharge8.png")
-      ]
+      ],
+      showConfirm: false
     };
   },
   async created() {
@@ -193,6 +198,7 @@ export default {
       this.recordNum = recordRes.data.data.split(",")[0];
       this.company = recordRes.data.data.split(",")[1];
     }
+    this.fobidden_back();
   },
   mounted() {
     setTimeout(() => {
@@ -247,6 +253,27 @@ export default {
       } else {
         this.$toast("请输入正确手机号！");
       }
+    },
+    eventStay(obj) {
+      if (obj.type == "close") {
+        this.showConfirm = false;
+      } else if (obj.type == "come") {
+        this.showConfirm = false;
+      } else if (obj.type == "back") {
+        this.showConfirm = false;
+        history.go(-1);
+        window.removeEventListener("popstate", this.back_common);
+      }
+    },
+    //禁用浏览器返回
+    fobidden_back() {
+      //防止页面后退
+      history.pushState(null, null, document.URL);
+      window.addEventListener("popstate", this.back_common);
+    },
+    back_common() {
+      this.showConfirm = true;
+      history.pushState(null, null, document.URL);
     }
   }
 };
