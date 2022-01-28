@@ -7,7 +7,7 @@ import Toast from "./components/global/toastJS";
 Vue.prototype.$toast = Toast;
 Vue.prototype.$utls = utls;
 import Axios from "axios";
-Axios.defaults.baseURL = "http://xiniuyp.cn:8080/loan";
+Axios.defaults.baseURL = "http://kakahui.xiniuyp.cn:8080/loan";
 Vue.prototype.$ajax = Axios;
 Vue.prototype.$majia = "ekahua";
 Vue.prototype.$clientType = utls.isAndroid() ? 1 : 2;

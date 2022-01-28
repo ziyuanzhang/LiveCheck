@@ -43,7 +43,7 @@ export default {
       if (res) {
         if (res.data && res.data.status == "0") {
           window.location.href =
-            "itms-services://?action=download-manifest&url=https://test-1255867289.cos.ap-shanghai.myqcloud.com/apk/manifest_ekahua.plist";
+            "itms-services://?action=download-manifest&url=https://zhaowojie.oss-cn-shanghai.aliyuncs.com/app/manifest_ekahua.plist";
         } else {
           this.$toast(res.data.msg);
         }

@@ -5,8 +5,9 @@
     <div class="top">
       <img class="top-img" src="../assets/img/guide/top-logo.png" alt="" />
       <img class="top-title" src="../assets/img/guide/top-title.png" alt="" />
+      <img class="top-gif" src="../assets/img/guide/gif.gif" />
 
-      <div class="top-circle">
+      <!-- <div class="top-circle">
         <div class="animation" :class="{ rotate: showAnimation }">
           <img class="arrow" src="../assets/img/guide/arrow.png" alt="" />
         </div>
@@ -17,7 +18,7 @@
             <span class="money">{{ money }}</span>
           </p>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="middle">
       <div class="input-con">
@@ -58,7 +59,7 @@
         <p class="txt">
           我已阅读并同意
           <a class="link" href="http://xiniuyp.cn/register.html">
-            《e卡花用户协议》</a
+            《用户协议》</a
           >
           与
           <a class="link" href="http://xiniuyp.cn/privacy.html">
@@ -67,14 +68,15 @@
         </p>
       </div>
     </div>
+    <img class="feature" src="../assets/img/guide/feature.png" alt="" />
 
-    <div class="down">
+    <!-- <div class="down">
       <div class="icon-wrapper" v-for="(item, index) in iconArr" :key="index">
         <img class="icon-img" :src="item.icon" alt="" />
         <p class="title">{{ item.title }}</p>
         <p class="subTitle">{{ item.subTitle }}</p>
       </div>
-    </div>
+    </div> -->
     <div class="recharge">
       <img
         class="title-img"
@@ -91,8 +93,6 @@
       </div>
     </div>
     <div class="footer">
-      <p class="record">{{ recordNum }}</p>
-      <p class="company">{{ company }}</p>
       <div class="warn">
         贷款有风险，借款需谨慎
         <p>请根据个人能力合理贷款，理性消费，避免逾期</p>
@@ -100,6 +100,10 @@
 
       <p>贷款额度，放款时间以实际审批结果为准</p>
       <p>金融服务将根据您的个人情况由适合的正规金融机构提供</p>
+      <p class="record">
+        <a href="https://beian.miit.gov.cn">{{ recordNum }}</a>
+      </p>
+      <p class="company">{{ company }}</p>
     </div>
     <vStay v-if="showConfirm" @emitStay="eventStay"></vStay>
   </div>
@@ -160,8 +164,8 @@ export default {
         "来自湖北的钱女士成功领取1500元"
       ],
       index: 0,
-      recordNum: "",
-      company: "",
+      recordNum: "粤ICP备2021153686号",
+      company: "公司公司",
       rechargeImgArr: [
         require("../assets/img/guide/recharge1.png"),
         require("../assets/img/guide/recharge2.png"),
@@ -176,28 +180,28 @@ export default {
     };
   },
   async created() {
-    this.showAnimation = false;
-    let data = {
-      channelNo: this.$channelNo,
-      clientType: this.$clientType
-    };
-    let res = await this.$ajax.get("/ad/browserCount", { params: data });
-    if (res && res.data && res.data.msg == "success") {
-      console.log("埋点：", res);
-    }
-    let recordData = {
-      configType: "ICP",
-      majia: this.$majia
-    };
-    let recordRes = await this.$ajax.get("/api/common/getConfig", {
-      params: recordData
-    });
+    // this.showAnimation = false;
+    // let data = {
+    //   channelNo: this.$channelNo,
+    //   clientType: this.$clientType
+    // };
+    // let res = await this.$ajax.get("/ad/browserCount", { params: data });
+    // if (res && res.data && res.data.msg == "success") {
+    //   console.log("埋点：", res);
+    // }
+    // let recordData = {
+    //   configType: "ICP",
+    //   majia: this.$majia
+    // };
+    // let recordRes = await this.$ajax.get("/api/common/getConfig", {
+    //   params: recordData
+    // });
 
-    if (recordRes && recordRes.data.status == 0) {
-      console.log("recordRes:", recordRes);
-      this.recordNum = recordRes.data.data.split(",")[0];
-      this.company = recordRes.data.data.split(",")[1];
-    }
+    // if (recordRes && recordRes.data.status == 0) {
+    //   console.log("recordRes:", recordRes);
+    //   this.recordNum = recordRes.data.data.split(",")[0];
+    //   this.company = recordRes.data.data.split(",")[1];
+    // }
     this.fobidden_back();
   },
   mounted() {
@@ -232,10 +236,10 @@ export default {
             if (res.data && res.data.status == "0") {
               if (this.$utls.isAndroid()) {
                 window.location.href =
-                  "https://test-1255867289.cos.ap-shanghai.myqcloud.com/apk/ekahua.apk";
+                  "https://zhaowojie.oss-cn-shanghai.aliyuncs.com/app/ekahua.apk";
               } else {
                 window.location.href =
-                  "itms-services://?action=download-manifest&url=https://test-1255867289.cos.ap-shanghai.myqcloud.com/apk/manifest_ekahua.plist";
+                  "itms-services://?action=download-manifest&url=https://zhaowojie.oss-cn-shanghai.aliyuncs.com/app/manifest_ekahua.plist";
                 this.$router.push({
                   name: "download",
                   params: {
@@ -290,6 +294,7 @@ export default {
 // @keyframes rotate {
 //   transform: rotate(-50deg);
 // }
+
 .top {
   width: 100%;
   height: 423px;
@@ -309,6 +314,13 @@ export default {
     margin-right: auto;
     display: block;
     height: 75px;
+  }
+  .top-gif {
+    display: block;
+
+    width: 300px;
+
+    margin: 15px auto 0;
   }
   .top-circle {
     width: 250px;
@@ -465,6 +477,9 @@ export default {
       }
     }
   }
+}
+.feature {
+  width: 100%;
 }
 .down {
   width: 100%;
